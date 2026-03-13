@@ -6,7 +6,7 @@ org_name = "codelab"
 special_chars = ["!", "@", "#", "$", "%", "^", "&", "*"]
 """ TODO: When you add a function, if it hits an error, 
 write the error in the array then call the array and specific array placement of the corresponding error """
-errors = ["Passwords must contain at least 12 characters.","Passwords cannot exceed 128 characters", "Password must contain at least one special character (e.g. ! @ # $ % ^ & *)"] 
+errors = ["Passwords must contain at least 12 characters.","Passwords cannot exceed 128 characters", "Password must contain at least one special character (e.g. ! @ # $ % ^ & *)", "Password must contain at least one upper case character", "Password must contain at least one lower case character"] 
 
 # Initialised Variables
 """ NOTE: error message should be set to equal the relevant error from the errors array, 
@@ -36,4 +36,21 @@ def special_char_check(password, errors, special_chars):
             return True
     error_message = errors[2]
     return False, error_message
+
+# Checks if the converted lower case version of the users password matches the original
+def upper_case_check(password, errors, error_message):
+    if password == password.lower():
+        error_message = errors[3]
+        return False, error_message
+    else:
+        return True, error_message
+
+# Checks if the converted upper case version of the users password matches the original
+def lower_case_check(password, errors, error_message):
+    if password == password.upper():
+        error_message = errors[4]
+        return False, error_message
+    else:
+        return True, error_message
+    
 
