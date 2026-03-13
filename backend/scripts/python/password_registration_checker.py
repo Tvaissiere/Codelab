@@ -8,6 +8,7 @@ special_chars = ["!", "@", "#", "$", "%", "^", "&", "*"]
 # TODO: Add more popular keyboard walks
 keybrd_wlks = ["qwerty"]
 # NOTE: Make sure you use the relative path for leak files
+# TODO: Find better password list (this is too restrictive)
 leaks = ["../../../assets/pass_lists/10k-most-common.txt"]
 """ TODO: When you add a function, if it hits an error, 
 write the error in the array then call the array and specific array placement of the corresponding error """
@@ -19,7 +20,7 @@ rather than printed so when this is integrated with frontend you can post the er
 error_message = ""
 
 # NOTE: Variables for testing. THESE WILL BE REPLACED WITH POST INPUTS FROM REG FORM
-password = "password"
+password = ""
 username = ""
 email = ""
 
@@ -90,14 +91,13 @@ def keybrd_wlk_check(password, errors, error_message, keybrd_wlks):
             return False, error_message
     return True
 
-# FIXME: not working?
+# Checks if the users password has been recently leaked
 def leak_check(password, errors, error_message, leaks):
     for i in range(len(leaks)):
         with open(leaks[i]) as file:
             for x in file:
-                if x in password.lower():
+                if x.strip("\n") in password.lower():
                     error_message = errors[8]
                     return False, error_message
     return True, error_message
 
-print(leak_check(password, errors, error_message, leaks))
