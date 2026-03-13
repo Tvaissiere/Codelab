@@ -7,9 +7,11 @@ org_name = "codelab"
 special_chars = ["!", "@", "#", "$", "%", "^", "&", "*"]
 # TODO: Add more popular keyboard walks
 keybrd_wlks = ["qwerty"]
+# NOTE: Make sure you use the relative path for leak files
+leaks = ["../../../assets/pass_lists/10k-most-common.txt"]
 """ TODO: When you add a function, if it hits an error, 
 write the error in the array then call the array and specific array placement of the corresponding error """
-errors = ["Passwords must contain at least 12 characters.","Passwords cannot exceed 128 characters", "Password must contain at least one special character (e.g. ! @ # $ % ^ & *)", "Password must contain at least one upper case character", "Password must contain at least one lower case character", "Password must contain at least one number", "Your password cannot contain your username, email or the platform name", "Please avoid keyboard walking (i.e. qwerty, etc.)"] 
+errors = ["Passwords must contain at least 12 characters.","Passwords cannot exceed 128 characters", "Password must contain at least one special character (e.g. ! @ # $ % ^ & *)", "Password must contain at least one upper case character", "Password must contain at least one lower case character", "Password must contain at least one number", "Your password cannot contain your username, email or the platform name", "Please avoid keyboard walking (i.e. qwerty, etc.)", "This password was found in a data leak, please try another."] 
 
 # Initialised Variables
 """ NOTE: error message should be set to equal the relevant error from the errors array, 
@@ -17,7 +19,7 @@ rather than printed so when this is integrated with frontend you can post the er
 error_message = ""
 
 # NOTE: Variables for testing. THESE WILL BE REPLACED WITH POST INPUTS FROM REG FORM
-password = ""
+password = "password"
 username = ""
 email = ""
 
@@ -81,11 +83,21 @@ def disallowed_words(password, username, errors, error_message):
         return True, error_message
 
 # Checks if the password contains specific keyboard walks
-def keybrd_wlk_check(password, errors, keybrd_wlks):
+def keybrd_wlk_check(password, errors, error_message, keybrd_wlks):
     for i in range(len(keybrd_wlks)):
         if keybrd_wlks[i] in password.lower():
             error_message = errors[7]
             return False, error_message
     return True
 
-print(keybrd_wlk_check(password, errors, keybrd_wlks))
+# FIXME: not working?
+def leak_check(password, errors, error_message, leaks):
+    for i in range(len(leaks)):
+        with open(leaks[i]) as file:
+            for x in file:
+                if x in password.lower():
+                    error_message = errors[8]
+                    return False, error_message
+    return True, error_message
+
+print(leak_check(password, errors, error_message, leaks))
