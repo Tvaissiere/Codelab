@@ -1,13 +1,9 @@
-# TODO: Write script which will ensure the users entered password meets the specified criteria (from the password policy)
-# NOTE: Returning False means fale, True means criteria is met.
+# NOTE: When testing, enter any value for email and user as blank exists in every string
 
 # Static Variables
 org_name = "codelab"
-# TODO: Add anymore special chars you want to allow
 special_chars = ["!", "@", "#", "$", "%", "^", "&", "*"]
-# TODO: Add more popular keyboard walks
 keybrd_wlks = ["qwerty"]
-# NOTE: Make sure you use the relative path for leak files
 # TODO: Find better password list (this is too restrictive)
 leaks = ["assets/pass_lists/10k-most-common.txt"]
 
@@ -22,21 +18,26 @@ functions = [
     lambda: leak_check(password, errors, error_message, leaks),
 ]
 
-""" TODO: When you add a function, if it hits an error, 
-write the error in the array then call the array and specific array placement of the corresponding error """
-errors = ["Passwords must contain at least 12 characters.","Passwords cannot exceed 128 characters", "Password must contain at least one special character (e.g. ! @ # $ % ^ & *)", "Password must contain at least one upper case character", "Password must contain at least one lower case character", "Password must contain at least one number", "Your password cannot contain your username, email or the platform name", "Please avoid keyboard walking (i.e. qwerty, etc.)", "This password was found in a data leak, please try another."] 
+errors = ["Passwords must contain at least 12 characters.",
+          "Passwords cannot exceed 128 characters", 
+          "Password must contain at least one special character (e.g. ! @ # $ % ^ & *)", 
+          "Password must contain at least one upper case character", 
+          "Password must contain at least one lower case character", 
+          "Password must contain at least one number", 
+          "Your password cannot contain your username, email or the platform name", 
+          "Please avoid keyboard walking (i.e. qwerty, etc.)", 
+          "This password was found in a data leak, please try another."] 
 
 # Initialised Variables
-""" NOTE: error message should be set to equal the relevant error from the errors array, 
-rather than printed so when this is integrated with frontend you can post the error_message bac """
 error_message = ""
 final_error_output = []
 
 # NOTE: Variables for testing. THESE WILL BE REPLACED WITH POST INPUTS FROM REG FORM
 password = "Sukcnskdncjsped209832!@"
-username = ""
-email = ""
+username = "username"
+email = "email@mail.com"
 
+# Checks if the length of the password is acceptable
 def length_check(password, errors, error_message):
     if len(password) < 12:
         error_message = errors[0]
@@ -80,7 +81,6 @@ def number_check(password, errors, error_message):
     error_message = errors[5]
     return False, error_message
 
-# TODO: Test with different conditions but should work
 # Checks specific disallowed words
 def disallowed_words(password, username, errors, error_message):
     if username.lower() in password.lower():
@@ -113,8 +113,6 @@ def leak_check(password, errors, error_message, leaks):
                     return False, error_message
     return True, None
 
-""" FIXME: Triggering 'Your password cannot contain your username, email 
-or the platform name' even when they are not the same"""
 def main(functions):
     for function in functions:
         result, error_message = function()
@@ -122,6 +120,6 @@ def main(functions):
             pass
         else:
             final_error_output.append(error_message)
-    print(final_error_output)
+    return final_error_output
         
 main(functions)
