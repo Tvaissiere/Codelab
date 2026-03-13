@@ -29,9 +29,11 @@ def length_check(password, errors, error_message):
     else:
         return True, error_message
 
-""" TODO: Make the function enumerate through each character in the password and check whether the char is in 
-special_char array. If no char is in special_char array then error_message = errors[2]? Unless you can think of
-a better way? """
-def special_char_check(password):
-    pass
+# Checks wether or not the users password contains any array element from special_chars
+def special_char_check(password, errors, special_chars):
+    for i in range(len(password)):
+        if password[i] in special_chars:
+            return True
+    error_message = errors[2]
+    return False, error_message
 
