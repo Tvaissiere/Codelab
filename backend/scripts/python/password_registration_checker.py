@@ -5,9 +5,11 @@
 org_name = "codelab"
 # TODO: Add anymore special chars you want to allow
 special_chars = ["!", "@", "#", "$", "%", "^", "&", "*"]
+# TODO: Add more popular keyboard walks
+keybrd_wlks = ["qwerty"]
 """ TODO: When you add a function, if it hits an error, 
 write the error in the array then call the array and specific array placement of the corresponding error """
-errors = ["Passwords must contain at least 12 characters.","Passwords cannot exceed 128 characters", "Password must contain at least one special character (e.g. ! @ # $ % ^ & *)", "Password must contain at least one upper case character", "Password must contain at least one lower case character", "Password must contain at least one number", "Your password cannot contain your username, email or the platform name"] 
+errors = ["Passwords must contain at least 12 characters.","Passwords cannot exceed 128 characters", "Password must contain at least one special character (e.g. ! @ # $ % ^ & *)", "Password must contain at least one upper case character", "Password must contain at least one lower case character", "Password must contain at least one number", "Your password cannot contain your username, email or the platform name", "Please avoid keyboard walking (i.e. qwerty, etc.)"] 
 
 # Initialised Variables
 """ NOTE: error message should be set to equal the relevant error from the errors array, 
@@ -15,8 +17,8 @@ rather than printed so when this is integrated with frontend you can post the er
 error_message = ""
 
 # NOTE: Variables for testing. THESE WILL BE REPLACED WITH POST INPUTS FROM REG FORM
-password = "Spiderman2002"
-username = "Taylor"
+password = ""
+username = ""
 email = ""
 
 """ TODO: Test new logic to see if returning 2 values works"""
@@ -34,7 +36,7 @@ def length_check(password, errors, error_message):
 def special_char_check(password, errors, special_chars):
     for i in range(len(password)):
         if password[i] in special_chars:
-            return True
+            return True, error_message
     error_message = errors[2]
     return False, error_message
 
@@ -63,12 +65,27 @@ def number_check(password, errors, error_message):
     error_message = errors[5]
     return False, error_message
 
-# TODO: finnish this
+# TODO: Test with different conditions but should work
+# Checks specific disallowed words
 def disallowed_words(password, username, errors, error_message):
-    if username in password or username.lower() in password or username.upper() in password:
+    if username.lower() in password.lower():
         error_message = errors[6]
         return False, error_message
-    
-        pass
+    elif email.lower() in password.lower():
+        error_message = errors[6]
+        return False, error_message
+    elif org_name.lower() in password.lower():
+        error_message = errors[6]
+        return False, error_message
+    else:
+        return True, error_message
 
-disallowed_words(password, username, errors, error_message)
+# Checks if the password contains specific keyboard walks
+def keybrd_wlk_check(password, errors, keybrd_wlks):
+    for i in range(len(keybrd_wlks)):
+        if keybrd_wlks[i] in password.lower():
+            error_message = errors[7]
+            return False, error_message
+    return True
+
+print(keybrd_wlk_check(password, errors, keybrd_wlks))
