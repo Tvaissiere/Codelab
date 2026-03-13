@@ -1,4 +1,5 @@
 # TODO: Write script which will ensure the users entered password meets the specified criteria (from the password policy)
+# NOTE: Returning False means fale, True means criteria is met.
 
 # Static Variables
 org_name = "codelab"
@@ -6,7 +7,7 @@ org_name = "codelab"
 special_chars = ["!", "@", "#", "$", "%", "^", "&", "*"]
 """ TODO: When you add a function, if it hits an error, 
 write the error in the array then call the array and specific array placement of the corresponding error """
-errors = ["Passwords must contain at least 12 characters.","Passwords cannot exceed 128 characters", "Password must contain at least one special character (e.g. ! @ # $ % ^ & *)", "Password must contain at least one upper case character", "Password must contain at least one lower case character", "Password must contain at least one number"] 
+errors = ["Passwords must contain at least 12 characters.","Passwords cannot exceed 128 characters", "Password must contain at least one special character (e.g. ! @ # $ % ^ & *)", "Password must contain at least one upper case character", "Password must contain at least one lower case character", "Password must contain at least one number", "Your password cannot contain your username, email or the platform name"] 
 
 # Initialised Variables
 """ NOTE: error message should be set to equal the relevant error from the errors array, 
@@ -14,8 +15,8 @@ rather than printed so when this is integrated with frontend you can post the er
 error_message = ""
 
 # NOTE: Variables for testing. THESE WILL BE REPLACED WITH POST INPUTS FROM REG FORM
-password = ""
-username = ""
+password = "Spiderman2002"
+username = "Taylor"
 email = ""
 
 """ TODO: Test new logic to see if returning 2 values works"""
@@ -62,3 +63,12 @@ def number_check(password, errors, error_message):
     error_message = errors[5]
     return False, error_message
 
+# TODO: finnish this
+def disallowed_words(password, username, errors, error_message):
+    if username in password or username.lower() in password or username.upper() in password:
+        error_message = errors[6]
+        return False, error_message
+    
+        pass
+
+disallowed_words(password, username, errors, error_message)
