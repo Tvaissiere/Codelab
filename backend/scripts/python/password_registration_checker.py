@@ -31,11 +31,10 @@ errors = ["Passwords must contain at least 12 characters.",
 # Initialised Variables
 error_message = ""
 final_error_output = []
-
 # NOTE: Variables for testing. THESE WILL BE REPLACED WITH POST INPUTS FROM REG FORM
-password = "Sukcnskdncjsped209832!@"
-username = "username"
-email = "email@mail.com"
+password = ""
+username = ""
+email = ""
 
 # Checks if the length of the password is acceptable
 def length_check(password, errors, error_message):
