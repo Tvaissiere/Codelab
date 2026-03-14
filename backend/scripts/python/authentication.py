@@ -3,6 +3,7 @@ import password_registration_checker
 
 app = Flask(__name__, template_folder="../../../frontend/test")
 
+# TODO: Needs modifying so that data when password is successful gets entered into the dummy db
 @app.route("/", methods=["GET", "POST"])
 def registration(): 
     errors = []
