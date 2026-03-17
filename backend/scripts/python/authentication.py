@@ -35,6 +35,8 @@ def registration():
             }
 
             duplication_check = "SELECT 1 FROM users WHERE username = %(username)s LIMIT 1"
+            registration_query = "INSERT INTO users (username, email, password_hash) VALUES (%(username)s, %(email)s, %(password)s)"
+
 
             with psycopg2.connect(**connection_details) as conn:
                 with conn.cursor() as cur:
@@ -44,11 +46,6 @@ def registration():
                     if duplication_check_answr:
                         errors.append("Sorry this username already exists")
                         return render_template("register.html", errors=errors)
-
-            registration_query = "INSERT INTO users (username, email, password_hash) VALUES (%(username)s, %(email)s, %(password)s)"
-
-            with psycopg2.connect(**connection_details) as conn:
-                with conn.cursor() as cur:
                     cur.execute(registration_query, registration_data)
                     conn.commit()
                     print("info: successfully added")
