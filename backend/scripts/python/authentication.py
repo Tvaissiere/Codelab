@@ -18,6 +18,11 @@ def registration():
         email = request.form.get("email")
         password = request.form.get("password")
 
+        # Check they entered a valid email
+        # TODO: Disable the defualt browser error checking so we can test if this works- better to keep errors consistant   
+        if "@" not in str(email):
+            errors.append("Sorry, you need to enter a valid email address")
+
         # Pass the form values onto the py variables
         password_registration_checker.username = username
         password_registration_checker.email = email
